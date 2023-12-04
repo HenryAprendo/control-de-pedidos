@@ -1,0 +1,50 @@
+<form [formGroup]="ordersForm" >
+
+  <label for="">Torre-Apto</label> <br>
+  <input type="text" formControlName="apartment">
+  <ul>
+    @for(product of listOfProducts; track product.id){
+
+      <li>
+        <h2>{{product.name}}</h2>
+        <p>Price: {{product.price}}</p>
+
+        @if (product.name == 'Empanadas' || product.name == 'Caribañolas') {
+          <label for="">Carne</label>
+          <select name="" id="" [formControlName]="product.controlNameMeat!" >
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+          </select>
+
+          <label for="">Queso</label>
+          <select name="" id="" [formControlName]="product.controlNameCheese!">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+          </select>
+        } @else {
+          <label for="">Cantidad</label>
+          <select name="" id="" [formControlName]="product.controlName!" >
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+          </select>
+        }
+      </li>
+    }
+  </ul>
+
+</form>
