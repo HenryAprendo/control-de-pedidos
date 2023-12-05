@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -9,5 +9,6 @@ import { RouterModule } from '@angular/router';
   styles: ``
 })
 export class OrdersComponent {
+
 
 }

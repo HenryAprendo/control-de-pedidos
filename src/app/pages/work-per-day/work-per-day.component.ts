@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { WorkOrderService } from '../../services/work-order.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-work-per-day',
@@ -8,5 +10,14 @@ import { Component } from '@angular/core';
   styles: ``
 })
 export class WorkPerDayComponent {
+
+  private workOrder = inject(WorkOrderService);
+
+  private router = inject(Router);
+
+  createOrder(){
+    const orderNumber = this.workOrder.createNewWorkOrder();
+    this.router.navigate(['/orders', orderNumber]);
+  }
 
 }
