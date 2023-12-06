@@ -5,6 +5,7 @@ import { products } from '../../data/products';
 import { map } from 'rxjs';
 import { WorkOrderService } from '../../services/work-order.service';
 import { Orders } from '../../models/orders.model';
+import { UniqueIdService } from '../../services/unique-id.service';
 
 @Component({
   selector: 'app-orders',
@@ -25,6 +26,8 @@ export class OrdersComponent implements OnInit {
 
   private workOrderService = inject(WorkOrderService);
 
+  private uniqueId = inject(UniqueIdService);
+
   orderActual!:number;
 
   orderList: Orders[] = []
@@ -36,12 +39,14 @@ export class OrdersComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.pipe(
       map(param => Number(param.get('order-number')))
-    ).subscribe(value => this.orderActual = value);
+    ).subscribe(value => {
+      this.orderActual = value
+      this.workOrderService.updateOrderList(value);
+    });
 
     this.workOrderService.orderList$
       .subscribe(data => {
         this.orderList = data;
-        console.log(data)
       });
   }
 
@@ -60,7 +65,7 @@ export class OrdersComponent implements OnInit {
   addNewOrders(){
     if(this.ordersForm.valid){
       this.workOrderService.addNewOrders(this.orderActual, new Orders(
-        0,
+        this.uniqueId.newOrderId(),
         this.ordersForm.get('apartment')?.value,
         this.ordersForm.get('empCheese')?.value,
         this.ordersForm.get('empMeat')?.value,
