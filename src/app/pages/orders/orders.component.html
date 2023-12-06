@@ -1,13 +1,59 @@
-
-<ul>
-  <li>
-    <a routerLink="./create-new-order" >Nuevo pedido</a>
-  </li>
-  <li>
-    <a routerLink="/orders" >Lista</a>
-  </li>
-</ul>
 <div>
-  <router-outlet></router-outlet>
+  <form [formGroup]="ordersForm" (ngSubmit)="addNewOrders()" >
+
+    <label for="">Torre-Apto</label> <br>
+    <input type="text" formControlName="apartment">
+    <ul>
+      @for(product of listOfProducts; track product.id){
+
+        <li>
+          <h2>{{product.name}}</h2>
+          <p>Price: {{product.price}}</p>
+
+          @if (product.name == 'Empanadas' || product.name == 'Caribañolas') {
+            <label for="">Carne</label>
+            <input name="" id="" [formControlName]="product.controlNameMeat!" >
+
+            <label for="">Queso</label>
+            <input name="" id="" [formControlName]="product.controlNameCheese!">
+
+          } @else {
+            <label for="">Cantidad</label>
+            <input name="" id="" [formControlName]="product.controlName!" >
+          }
+        </li>
+      }
+    </ul>
+
+    <button type="submit">Crear pedido</button>
+
+  </form>
+
+  <div>
+    <!-- Lista de pedidos -->
+    @for(item of orderList; track item.orderNumber){
+      <ul>
+        <li>Pedido No. {{item.orderNumber}} | Apto {{item.apartment}}</li>
+        <li>Empanadas de carne: {{item.quantityEmpMeat}}</li>
+        <li>Empanadas de queso: {{item.quantityEmpCheese}}</li>
+      </ul>
+    } @empty {
+      <p>Sin elementos en la lista</p>
+    }
+  </div>
+
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 

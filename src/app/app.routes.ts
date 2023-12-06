@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { WorkPerDayComponent } from './pages/work-per-day/work-per-day.component';
+import { OrdersComponent } from './pages/orders/orders.component';
 
 export const routes: Routes = [
   {
@@ -13,7 +14,7 @@ export const routes: Routes = [
   },
   {
     path: 'orders/:order-number',
-    loadChildren: () => import('./pages/orders/orders.routes').then(m=>m.routes)
+    component: OrdersComponent
   },
 
 ];

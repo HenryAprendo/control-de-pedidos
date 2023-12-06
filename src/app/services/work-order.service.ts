@@ -1,41 +1,45 @@
-import { Injectable, WritableSignal, signal } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import { WorkOrder } from '../models/work-order.model';
+import { BehaviorSubject } from 'rxjs';
+import { Orders } from '../models/orders.model';
+import { UniqueIdService } from '../services/unique-id.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WorkOrderService {
 
-  private workOrderNumber = signal(1);
+  private uniqueId = inject(UniqueIdService);
 
-  orders:WorkOrder[] = [];
+  workOrders:WorkOrder[] = [];
 
-  constructor(){
-    this.workOrderNumber.set(this.getWorkOrderNumber());
-  }
+  private orderList = new BehaviorSubject<Orders[]>([]);
+  orderList$ = this.orderList.asObservable();
+
+  constructor(){ }
 
   createNewWorkOrder(){
-    this.orders.push({
-      workOrderNumber: this.workOrderNumber(),
+    let workOrderActual = this.uniqueId.newWorkOrderId();
+
+    let data:WorkOrder = {
+      workOrderNumber: workOrderActual,
       orderList: []
-    });
+    }
 
-    let workOrderActual = this.workOrderNumber();
-
-    this.workOrderNumber.update(value => value + 1);
-    this.saveWorkOrderNumber();
+    let position = this.workOrders.push(data);
+    this.orderList.next(this.workOrders[position-1].orderList);
 
     return workOrderActual;
   }
 
-  private saveWorkOrderNumber(){
-    localStorage.setItem('workOrderNumber',JSON.stringify(this.workOrderNumber()));
-  }
+  addNewOrders(orderNumber:number,data:Orders){
+    console.log('Enviando pedido')
+    let index = this.workOrders.findIndex(item => item.workOrderNumber = orderNumber);
 
-  private getWorkOrderNumber(){
-   const data = localStorage.getItem('workOrderNumber');
-   const initialValue = data !== null ? JSON.parse(data) : '1';
-   return parseInt(initialValue);
+    if(index >= 0){
+      this.workOrders[index].orderList.push(data);
+      this.orderList.next(this.workOrders[index].orderList);
+    }
   }
 
 
