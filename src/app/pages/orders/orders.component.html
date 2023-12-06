@@ -34,8 +34,12 @@
     @for(item of orderList; track item.orderNumber){
       <ul>
         <li>Pedido No. {{item.orderNumber}} | Apto {{item.apartment}}</li>
-        <li>Empanadas de carne: {{item.quantityEmpMeat}}</li>
-        <li>Empanadas de queso: {{item.quantityEmpCheese}}</li>
+        <li>Empanada de carne: {{item.quantityEmpMeat}}</li>
+        <li>Empanada de queso: {{item.quantityEmpCheese}}</li>
+        <li>Carimañola de carne: {{item.quantityCbnMeat}}</li>
+        <li>Carimañola de queso: {{item.quantityEmpCheese}}</li>
+        <li>Papas rellenas: {{item.quantityEmpCheese}}</li>
+        <li>Arepa de anis: {{item.quantityEmpCheese}}</li>
       </ul>
     } @empty {
       <p>Sin elementos en la lista</p>

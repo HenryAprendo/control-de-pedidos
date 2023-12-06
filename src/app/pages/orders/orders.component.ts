@@ -40,7 +40,7 @@ export class OrdersComponent implements OnInit {
     this.route.paramMap.pipe(
       map(param => Number(param.get('order-number')))
     ).subscribe(value => {
-      this.orderActual = value
+      this.orderActual = value;
       this.workOrderService.updateOrderList(value);
     });
 
@@ -73,8 +73,16 @@ export class OrdersComponent implements OnInit {
         this.ordersForm.get('cbñMeat')?.value,
         this.ordersForm.get('potatoes')?.value,
         this.ordersForm.get('cornCake')?.value,
-      ))
-      // this.ordersForm.reset();
+      ));
+      this.ordersForm.reset({
+        apartment: 'T',
+        empCheese: 0,
+        empMeat: 0,
+        cbñCheese: 0,
+        cbñMeat: 0,
+        potatoes: 0,
+        cornCake: 0,
+      });
     }
   }
 
