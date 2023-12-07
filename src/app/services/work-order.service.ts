@@ -28,6 +28,7 @@ export class WorkOrderService {
 
     let data:WorkOrder = {
       workOrderNumber: workOrderActual,
+      createAt: new Date(),
       orderList: []
     }
 

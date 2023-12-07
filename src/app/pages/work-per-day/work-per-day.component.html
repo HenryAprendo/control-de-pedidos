@@ -6,6 +6,12 @@
 
   <!-- Contenido -->
   <div>
-
+    <ul>
+      @for(item of listWorkOrder; track item.workOrderNumber){
+        <li [routerLink]="['/orders', item.workOrderNumber]" >
+          Orden No {{item.workOrderNumber}} Fecha <span>{{item.createAt | date: 'medium' }}</span>
+        </li>
+      }
+    </ul>
   </div>
 </div>

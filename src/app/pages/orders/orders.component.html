@@ -30,6 +30,8 @@
   </form>
 
   <div>
+
+  <h2>Orden de trabajo No {{orderActual}}</h2>
     <!-- Lista de pedidos -->
     @for(item of orderList; track item.orderNumber){
       <ul>
@@ -41,6 +43,7 @@
         <li>Papas rellenas: {{item.quantityEmpCheese}}</li>
         <li>Arepa de anis: {{item.quantityEmpCheese}}</li>
       </ul>
+
     } @empty {
       <p>Sin elementos en la lista</p>
     }
