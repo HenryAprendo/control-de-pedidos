@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { products } from '../../data/products';
@@ -30,7 +30,9 @@ export class OrdersComponent implements OnInit {
 
   orderActual!:number;
 
-  orderList: Orders[] = []
+  orderList: Orders[] = [];
+
+  showOrderForm = signal(false);
 
   constructor(){
     this.ordersForm = this.buildForm();
@@ -48,6 +50,10 @@ export class OrdersComponent implements OnInit {
       .subscribe(data => {
         this.orderList = data;
       });
+  }
+
+  onShowForm(){
+    this.showOrderForm.update(state => !state);
   }
 
   private buildForm(){

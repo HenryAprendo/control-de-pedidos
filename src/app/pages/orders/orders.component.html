@@ -1,47 +1,52 @@
+<button (click)="onShowForm()" >{{showOrderForm() ? 'Cancelar' : 'Nuevo pedido' }}</button>
 <div>
-  <form [formGroup]="ordersForm" (ngSubmit)="addNewOrders()" >
+  @if (showOrderForm()) {
+    <form [formGroup]="ordersForm" (ngSubmit)="addNewOrders()" >
 
-    <label for="">Torre-Apto</label> <br>
-    <input type="text" formControlName="apartment">
-    <ul>
-      @for(product of listOfProducts; track product.id){
+      <label for="">Torre-Apto</label> <br>
+      <input type="text" formControlName="apartment">
+      <ul>
+        @for(product of listOfProducts; track product.id){
+          <li>
+            <h2>{{product.name}}</h2>
+            <p>Price: {{product.price}}</p>
 
-        <li>
-          <h2>{{product.name}}</h2>
-          <p>Price: {{product.price}}</p>
+            @if (product.name == 'Empanadas' || product.name == 'Caribañolas') {
+              <label for="">Carne</label>
+              <input name="" id="" [formControlName]="product.controlNameMeat!">
 
-          @if (product.name == 'Empanadas' || product.name == 'Caribañolas') {
-            <label for="">Carne</label>
-            <input name="" id="" [formControlName]="product.controlNameMeat!" >
+              <label for="">Queso</label>
+              <input name="" id="" [formControlName]="product.controlNameCheese!">
 
-            <label for="">Queso</label>
-            <input name="" id="" [formControlName]="product.controlNameCheese!">
+            } @else {
+              <label for="">Cantidad</label>
+              <input name="" id="" [formControlName]="product.controlName!" >
+            }
+          </li>
+        }
+      </ul>
 
-          } @else {
-            <label for="">Cantidad</label>
-            <input name="" id="" [formControlName]="product.controlName!" >
-          }
-        </li>
-      }
-    </ul>
+      <button type="submit">Crear</button>
 
-    <button type="submit">Crear pedido</button>
-
-  </form>
+    </form>
+  }
 
   <div>
-
-  <h2>Orden de trabajo No {{orderActual}}</h2>
+    <h2>Orden de trabajo No {{orderActual}}</h2>
     <!-- Lista de pedidos -->
     @for(item of orderList; track item.orderNumber){
       <ul>
         <li>Pedido No. {{item.orderNumber}} | Apto {{item.apartment}}</li>
-        <li>Empanada de carne: {{item.quantityEmpMeat}}</li>
-        <li>Empanada de queso: {{item.quantityEmpCheese}}</li>
-        <li>Carimañola de carne: {{item.quantityCbnMeat}}</li>
-        <li>Carimañola de queso: {{item.quantityEmpCheese}}</li>
-        <li>Papas rellenas: {{item.quantityEmpCheese}}</li>
-        <li>Arepa de anis: {{item.quantityEmpCheese}}</li>
+        <li>
+          @if (item.quantityEmpMeat > 0) {
+            <span>Empanada de carne: {{item.quantityEmpMeat}} ${{item.quantityEmpMeat*1500}}</span>
+          }
+        </li>
+        <li>Empanada de queso: {{item.quantityEmpCheese}} ${{item.quantityEmpCheese*1500}}</li>
+        <li>Carimañola de carne: {{item.quantityCbnMeat}} ${{item.quantityCbnMeat*2000}}</li>
+        <li>Carimañola de queso: {{item.quantityCbnCheese}} ${{item.quantityCbnCheese*2000}}</li>
+        <li>Papas rellenas: {{item.quantityPotatoes}} ${{item.quantityPotatoes*2000}}</li>
+        <li>Arepa de anis: {{item.quantityCornCake}} ${{item.quantityCornCake*2000}}</li>
       </ul>
 
     } @empty {
