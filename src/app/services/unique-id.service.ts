@@ -46,6 +46,7 @@ export class UniqueIdService {
 
     //Save last id
     this.storeId.saveLastId('productId',id);
+    return id;
   }
 
 }

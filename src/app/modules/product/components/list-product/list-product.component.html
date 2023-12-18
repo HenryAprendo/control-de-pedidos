@@ -1,0 +1,12 @@
+<div>
+  <ul>
+    @for(item of products; track item.id){
+      <li>{{item.name}}</li>
+      <li>{{item.price}}</li>
+      <li>{{item.description}}</li>
+      <li>
+        <img [src]="item.image" alt="">
+      </li>
+    }
+  </ul>
+</div>

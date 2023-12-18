@@ -4,5 +4,5 @@ export interface Article {
   description:string;
   price:number;
   image:string;
-  isSelected?:boolean;
+  isSelected:boolean;
 }
