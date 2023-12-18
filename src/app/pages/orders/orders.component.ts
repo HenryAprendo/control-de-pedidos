@@ -65,7 +65,7 @@ export class OrdersComponent implements OnInit {
       cbñMeat: [0],
       potatoes: [0],
       cornCake: [0],
-    })
+    });
   }
 
   addNewOrders(){
