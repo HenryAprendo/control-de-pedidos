@@ -10,11 +10,14 @@ export class UniqueIdService {
 
   private orderId = signal(0);
 
+  private productId = signal(0);
+
   private storeId = inject(StoreIdService);
 
   constructor() {
     this.workOrderId.set(this.storeId.getId('workOrderId'));
     this.orderId.set(this.storeId.getId('orderId'));
+    this.productId.set(this.storeId.getId('productId'));
   }
 
   newWorkOrderId(){
@@ -35,6 +38,14 @@ export class UniqueIdService {
     this.storeId.saveLastId('orderId',id);
 
     return id;
+  }
+
+  newProductId(){
+    this.productId.update(value => value + 1);
+    let id = this.productId();
+
+    //Save last id
+    this.storeId.saveLastId('productId',id);
   }
 
 }

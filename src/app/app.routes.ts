@@ -5,7 +5,7 @@ import { OrdersComponent } from './pages/orders/orders.component';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'work-per-day',
+    redirectTo: 'products',
     pathMatch: 'full'
   },
   {
@@ -16,5 +16,9 @@ export const routes: Routes = [
     path: 'orders/:order-number',
     component: OrdersComponent
   },
+  {
+    path: 'products',
+    loadChildren: () => import('./modules/product/product.routes').then(m => m.routes),
+  }
 
 ];
