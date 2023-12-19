@@ -25,7 +25,7 @@ export const images: UrlImage[] = [
     urlImage: './assets/images/carimanola_2.png'
   },
   {
-    title: 'carimañola#1',
+    title: 'carimañola#3',
     urlImage: './assets/images/carimanola_3.png'
   },
   {

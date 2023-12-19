@@ -1,12 +1,11 @@
-<div>
-  <ul>
-    @for(item of products; track item.id){
-      <li>{{item.name}}</li>
-      <li>{{item.price}}</li>
-      <li>{{item.description}}</li>
+<div class="grid grid-cols-3 gap-2">
+  @for(item of products; track item.id){
+    <ul class="border p-2 rounded shadow-md">
       <li>
-        <img [src]="item.image" [alt]="item.name">
+        <img class="w-20" [src]="item.image" [alt]="item.name">
       </li>
-    }
-  </ul>
+      <li class="text-base font-medium text-indigo-600 italic" >{{item.name}}</li>
+      <li class="text-sm font-bold">{{item.price | currency: 'COP'}}</li>
+    </ul>
+  }
 </div>
