@@ -6,3 +6,7 @@ export interface Article {
   image:string;
   isSelected:boolean;
 }
+
+export interface UpdateArticleDto extends Partial<Omit<Article, 'id'>> {
+
+}
