@@ -54,7 +54,7 @@ export class ProductService {
       } else {
         newDta = {...res, ...data };
         const index = this.findIndex(id);
-        if(index && index > 0) {
+        if(index !== null) {
           this.listArticle[index] = {...newDta};
           this.storeProduct.saveListArticle([...this.listArticle]);
           this.router.navigate(['./']);
@@ -66,8 +66,8 @@ export class ProductService {
 
   delete(id:number){
     const index = this.findIndex(id);
-    if(index && index > 0){
-      this.listArticle.splice(index);
+    if(index !== null){
+      this.listArticle.splice(index,1);
       this.storeProduct.saveListArticle([...this.listArticle]);
       this.articles$.next(this.listArticle);
     }
@@ -75,7 +75,7 @@ export class ProductService {
 
   private findIndex(id:number): number|null {
     let index = this.listArticle.findIndex(item => item.id === id);
-    return index > 0 ? index : null;
+    return index >= 0 ? index : null;
   }
 
 }

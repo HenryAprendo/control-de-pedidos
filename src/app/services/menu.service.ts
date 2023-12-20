@@ -16,22 +16,30 @@ export class MenuService {
   }
 
   save(data:Article){
-    if(this.validateExists(data)){
+    if(!this.validateExists(data.id)){
       this.menuProducts.push(data);
       this.storeMenu.saveMenuProducts(this.menuProducts);
     }
   }
 
   remove(data:Article){
-    if(this.validateExists(data)){
+    if(this.validateExists(data.id)){
       const index = this.menuProducts.findIndex(item => item.id === data.id);
-      if(index > 0) this.menuProducts.splice(index);
+      if(index >= 0){
+        this.menuProducts.splice(index,1);
+      }
       this.storeMenu.saveMenuProducts(this.menuProducts);
     }
   }
 
-  private validateExists(data:Article): boolean {
-    return this.menuProducts.includes(data);
+  private validateExists(id:number): boolean {
+    let exists = false;
+    this.menuProducts.forEach(item => {
+      if(item.id === id){
+        exists = true
+      }
+    });
+    return exists;
   }
 
 
