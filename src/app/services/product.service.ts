@@ -2,8 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { Article, UpdateArticleDto } from '../models/article.model';
 import { Router } from '@angular/router';
 import { StoreProductService } from '../services/store-product.service';
-import { Observable, of } from 'rxjs';
-
+import { BehaviorSubject, Observable, of } from 'rxjs';
 
 
 @Injectable({
@@ -17,8 +16,12 @@ export class ProductService {
 
   private listArticle: Article[] = [];
 
+  private articles$ = new BehaviorSubject<Article[]>(this.listArticle);
+  private retrieveArticles$ = this.articles$.asObservable();
+
   constructor() {
     this.listArticle = this.storeProduct.getListArticle();
+    this.articles$.next(this.listArticle);
   }
 
   addProduct(data:Article){
@@ -28,7 +31,7 @@ export class ProductService {
   }
 
   findAll(): Observable<Article[]>{
-    return of([...this.listArticle]);
+    return this.retrieveArticles$;
   }
 
   findOne(id:number): Observable<Article|null> {
@@ -44,7 +47,6 @@ export class ProductService {
 
   update(id:number, data:UpdateArticleDto){
     let newDta = {} as Article;
-    console.log(id)
 
     this.findOne(id).subscribe(res => {
       if(res === null){
@@ -54,7 +56,6 @@ export class ProductService {
         const index = this.findIndex(id);
         if(index && index > 0) {
           this.listArticle[index] = {...newDta};
-          console.log(this.listArticle[index]);
           this.storeProduct.saveListArticle([...this.listArticle]);
           this.router.navigate(['./']);
         };
@@ -68,6 +69,7 @@ export class ProductService {
     if(index && index > 0){
       this.listArticle.splice(index);
       this.storeProduct.saveListArticle([...this.listArticle]);
+      this.articles$.next(this.listArticle);
     }
   }
 
