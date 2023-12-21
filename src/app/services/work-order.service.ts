@@ -1,9 +1,9 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { WorkOrder } from '../models/work-order.model';
 import { BehaviorSubject } from 'rxjs';
-import { Orders } from '../models/orders.model';
 import { UniqueIdService } from '../services/unique-id.service';
 import { StoreWorkOrderService } from '../services/store-work-order.service';
+import { Orders } from './../models/orders.model';
 
 @Injectable({
   providedIn: 'root'

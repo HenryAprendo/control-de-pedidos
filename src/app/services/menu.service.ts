@@ -17,7 +17,7 @@ export class MenuService {
 
   save(data:Article){
     if(!this.validateExists(data.id)){
-      this.menuProducts.push(data);
+      this.menuProducts.push({...data});
       this.storeMenu.saveMenuProducts(this.menuProducts);
     }
   }
@@ -30,6 +30,10 @@ export class MenuService {
       }
       this.storeMenu.saveMenuProducts(this.menuProducts);
     }
+  }
+
+  retrieve(): Article[] {
+    return [...this.menuProducts];
   }
 
   private validateExists(id:number): boolean {

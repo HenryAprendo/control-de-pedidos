@@ -1,18 +1,18 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { WorkOrderService } from '../../services/work-order.service';
-import { Router, RouterModule } from '@angular/router';
-import { StoreWorkOrderService } from '../../services/store-work-order.service';
-import { WorkOrder } from '../../models/work-order.model';
 import { CommonModule } from '@angular/common';
+import { WorkOrderService } from '../../../../services/work-order.service';
+import { Router, RouterModule } from '@angular/router';
+import { StoreWorkOrderService } from '../../../../services/store-work-order.service';
+import { WorkOrder } from '../../../../models/work-order.model';
 
 @Component({
-  selector: 'app-work-per-day',
+  selector: 'app-home-work',
   standalone: true,
   imports: [CommonModule, RouterModule],
-  templateUrl: './work-per-day.component.html',
+  templateUrl: './home-work.component.html',
   styles: ``
 })
-export class WorkPerDayComponent implements OnInit {
+export class HomeWorkComponent {
 
   private storeWorkOrderService = inject(StoreWorkOrderService);
 
@@ -28,9 +28,7 @@ export class WorkPerDayComponent implements OnInit {
 
   createOrder(){
     const orderNumber = this.workOrder.createNewWorkOrder();
-    this.router.navigate(['/orders', orderNumber]);
+    this.router.navigate(['./works/orders',orderNumber]);
   }
-
-
 
 }

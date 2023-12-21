@@ -1,8 +1,18 @@
 <div class="min-h-screen max-w-7xl mx-auto">
-  <header class="py-3 border-b mb-3">
+  <header class="py-3 border-b mb-3 flex justify-between items-center h-1/6">
     <h1 class="text-3xl">La costeña mariana</h1>
+    <nav>
+      <ul class="flex items-center gap-x-6 ">
+        <li>
+          <a class="hover:cursor-pointer" routerLink="/products" routerLinkActive="text-indigo-500" >Lista de productos</a>
+        </li>
+        <li>
+          <a class="hover:cursor-pointer" routerLink="/works" routerLinkActive="text-indigo-500" >Ordenes de trabajo</a>
+        </li>
+      </ul>
+    </nav>
   </header>
-  <main>
+  <main class="h-5/6">
     <router-outlet></router-outlet>
   </main>
 </div>
