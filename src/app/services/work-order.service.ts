@@ -1,4 +1,4 @@
-import { Injectable, inject, signal } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { WorkOrder } from '../models/work-order.model';
 import { BehaviorSubject } from 'rxjs';
 import { UniqueIdService } from '../services/unique-id.service';

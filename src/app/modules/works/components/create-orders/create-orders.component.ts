@@ -1,10 +1,10 @@
 import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { ReactiveFormsModule, Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { MenuService } from '../../../../services/menu.service';
 import { Article } from '../../../../models/article.model';
 import { numberOfTowers, numberOfApartment } from '../../../../data/locations';
-import { ReactiveFormsModule, Validators, FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-create-orders',
@@ -33,6 +33,8 @@ export class CreateOrdersComponent implements OnInit {
 
   formLocations!:FormGroup;
 
+  orderProducts:Article[] = [];
+
   constructor(){
     this.buildForm();
   }
@@ -43,8 +45,7 @@ export class CreateOrdersComponent implements OnInit {
         this.numberOrder.set(Number(params.get('orderNumber')));
       });
 
-    this.menuProducts = this.menuService.retrieve()
-
+    this.menuProducts = this.menuService.retrieve();
   }
 
   private buildForm(){

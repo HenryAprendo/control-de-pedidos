@@ -36,7 +36,7 @@ export class ProductService {
 
   findOne(id:number): Observable<Article|null> {
     const index = this.findIndex(id);
-    if(index && index > 0 ){
+    if(index !== null ){
       const result = this.listArticle[index];
       const data:Article = {...result};
       return of(data);
