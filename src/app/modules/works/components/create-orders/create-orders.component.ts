@@ -63,6 +63,27 @@ export class CreateOrdersComponent implements OnInit {
     return this.formLocations.get('apartment');
   }
 
+  incrementAmountProduct(id:number){
+    const index = this.menuProducts.findIndex(item => item.id === id);
+    if(index >= 0) {
+      this.menuProducts[index].amount! += 1;
+    }
+  }
+
+  decrementAmountProduct(id:number){
+    const index = this.menuProducts.findIndex(item => item.id === id);
+    if(index >= 0) {
+      if(this.menuProducts[index].amount! > 0){
+        this.menuProducts[index].amount! -= 1;
+      }
+      else {
+        this.menuProducts[index].amount! = 0;
+      }
+    }
+  }
+
+
+
 }
 
 

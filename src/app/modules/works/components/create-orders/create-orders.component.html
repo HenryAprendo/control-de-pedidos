@@ -42,8 +42,8 @@
           <section class="flex flex-col items-center justify-center">
             <p class="mb-2 text-xl">{{item.amount}}</p>
             <div class="flex gap-x-7">
-              <button class="w-8 h-8 flex items-center justify-center border rounded-full text-white bg-slate-700 hover:bg-slate-800 active:bg-slate-900 hover:scale-105 " >+</button>
-              <button class="w-8 h-8 flex items-center justify-center border rounded-full text-white bg-slate-700 hover:bg-slate-800 active:bg-slate-900 hover:scale-105 " >-</button>
+              <button (click)="incrementAmountProduct(item.id)" class="w-8 h-8 flex items-center justify-center border rounded-full text-white bg-slate-700 hover:bg-slate-800 active:bg-slate-900 hover:scale-105 " >+</button>
+              <button (click)="decrementAmountProduct(item.id)" class="w-8 h-8 flex items-center justify-center border rounded-full text-white bg-slate-700 hover:bg-slate-800 active:bg-slate-900 hover:scale-105 " >-</button>
             </div>
           </section>
         </article>
