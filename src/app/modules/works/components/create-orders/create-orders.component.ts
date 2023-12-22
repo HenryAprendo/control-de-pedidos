@@ -1,18 +1,25 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, computed, inject, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { switchMap } from 'rxjs';
 import { MenuService } from '../../../../services/menu.service';
 import { Article } from '../../../../models/article.model';
-import { CommonModule } from '@angular/common';
+import { numberOfTowers, numberOfApartment } from '../../../../data/locations';
+import { ReactiveFormsModule, Validators, FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-create-orders',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './create-orders.component.html',
   styles: ``
 })
 export class CreateOrdersComponent implements OnInit {
+
+  numTowers = numberOfTowers.slice();
+
+  numApartments = numberOfApartment.slice();
+
+  private fb = inject(FormBuilder);
 
   private route = inject(ActivatedRoute);
 
@@ -20,16 +27,39 @@ export class CreateOrdersComponent implements OnInit {
 
   menuProducts: Article[] = [];
 
-  ngOnInit(): void {
-    // this.route.parent?.paramMap.pipe(
-    //   switchMap(params => {
-    //     const orderNumber = Number(params.get('orderNumber'));
+  private numberOrder = signal(0);
 
-    //   })
-    // )
+  readNumOrder = computed(() => this.numberOrder());
+
+  formLocations!:FormGroup;
+
+  constructor(){
+    this.buildForm();
+  }
+
+  ngOnInit(): void {
+    this.route.parent?.paramMap
+      .subscribe( params => {
+        this.numberOrder.set(Number(params.get('orderNumber')));
+      });
 
     this.menuProducts = this.menuService.retrieve()
 
+  }
+
+  private buildForm(){
+    this.formLocations = this.fb.group({
+      tower: [1,[Validators.required]],
+      apartment: [101,[Validators.required]]
+    });
+  }
+
+  get towerField(){
+    return this.formLocations.get('tower');
+  }
+
+  get apartmentField(){
+    return this.formLocations.get('apartment');
   }
 
 }
