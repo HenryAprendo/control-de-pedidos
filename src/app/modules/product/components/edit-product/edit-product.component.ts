@@ -58,8 +58,7 @@ export class EditProductComponent implements OnInit {
         description: this.descriptionField?.value,
         price: this.priceField?.value,
         image: this.imageField?.value,
-        isSelected:false,
-        amount: 0
+        isSelected:false
       };
       this.productService.update(id,data);
     }

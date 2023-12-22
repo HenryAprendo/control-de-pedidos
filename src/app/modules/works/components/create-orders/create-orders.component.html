@@ -1,5 +1,5 @@
 
-<div class="flex gap-x-8">
+<div class="flex gap-x-10">
   <form [formGroup]="formLocations" >
     <h2 class="font-medium mb-4" >Selecciona la ubicación</h2>
     <div class="flex gap-x-6 mb-8">
@@ -22,10 +22,46 @@
     </div>
     <button class="px-3 py-1 border border-b-2 border-indigo-500 text-indigo-600" >Guardar</button>
   </form>
+
   <div>
     <h2 class="font-medium mb-4" >Agrega productos a tu pedido</h2>
-    @for(item of menuProducts; track item.id){
-      <p>{{item.name}} - {{item.price}} - amount {{item.amount}}</p>
-    }
+    <div class="grid grid-cols-2 gap-5">
+      @for(item of menuProducts; track item.id){
+        <article class="rounded-full border w-96 h-24 p-3 flex justify-around gap-x-4 shadow-md">
+          <section class="flex gap-x-3 items-center">
+            <div class="flex flex-col justify-center items-center">
+              <h3 class="text-base text-blue-600">{{item.name}}</h3>
+              <p class="text-sm font-light text-slate-950 ">{{item.price | currency: 'COP'}}</p>
+            </div>
+            <div>
+              <figure>
+                <img class="w-14 h-14" [src]="item.image" [alt]="item.name">
+              </figure>
+            </div>
+          </section>
+          <section class="flex flex-col items-center justify-center">
+            <p class="mb-2 text-xl">{{item.amount}}</p>
+            <div class="flex gap-x-7">
+              <button class="w-8 h-8 flex items-center justify-center border rounded-full text-white bg-slate-700 hover:bg-slate-800 active:bg-slate-900 hover:scale-105 " >+</button>
+              <button class="w-8 h-8 flex items-center justify-center border rounded-full text-white bg-slate-700 hover:bg-slate-800 active:bg-slate-900 hover:scale-105 " >-</button>
+            </div>
+          </section>
+        </article>
+      }
+    </div>
   </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
