@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Orders } from '../../../../models/orders.model';
 import { WorkOrderService } from '../../../../services/work-order.service';
 import { WorkOrder } from '../../../../models/work-order.model';
@@ -9,7 +9,7 @@ import { Article } from '../../../../models/article.model';
 @Component({
   selector: 'app-list-orders',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './list-orders.component.html',
   styles: ``
 })

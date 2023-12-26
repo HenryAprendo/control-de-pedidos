@@ -3,6 +3,7 @@ import { HomeWorkComponent } from './components/home-work/home-work.component';
 import { OrdersComponent } from './components/orders/orders.component';
 import { ListOrdersComponent } from './components/list-orders/list-orders.component';
 import { CreateOrdersComponent } from './components/create-orders/create-orders.component';
+import { EditOrderComponent } from "./components/edit-order/edit-order.component";
 
 export const worksRoutes: Route[] = [
   {
@@ -20,6 +21,10 @@ export const worksRoutes: Route[] = [
       {
         path: 'new-orders',
         component: CreateOrdersComponent
+      },
+      {
+        path: 'edit-order/:id',
+        component: EditOrderComponent
       }
     ]
   }

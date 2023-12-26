@@ -3,10 +3,13 @@
 <div>
   @for(item of ordersProduct; track item.id; let i = $index){
     <div class="border mb-6">
-      <ul class="flex gap-x-5 border-b">
-        <li class="border-r px-2">Pedido N°: {{i + 1}}</li>
-        <li class="border-r px-2">Torre: <span>{{item.tower}}</span></li>
-        <li>Apto: <span>{{item.apartment}}</span></li>
+      <ul class="flex items-center border-b">
+        <li class="border-r px-2" >Pedido N°: {{i + 1}}</li>
+        <li class="border-r px-2" >Torre: <span>{{item.tower}}</span></li>
+        <li class="border-r px-2" >Apto: <span>{{item.apartment}}</span></li>
+        <li class="p-2 justify-items-end">
+          <a [routerLink]="['./edit-order',item.id]" class="border p-1 ">Editar</a>
+        </li>
       </ul>
       <div class="grid grid-cols-4">
         @for(product of item.listOrders; track product.id ){
