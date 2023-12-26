@@ -1,9 +1,10 @@
-<p>list-orders works!</p>
+<h2>Orden de trabajo N° {{orders.workOrderNumber}}</h2>
 
 <div>
-  @for(item of ordersProduct; track item.id){
+  @for(item of ordersProduct; track item.id; let i = $index){
     <div class="border mb-6">
       <ul class="flex gap-x-5 border-b">
+        <li class="border-r px-2">Pedido N°: {{i + 1}}</li>
         <li class="border-r px-2">Torre: <span>{{item.tower}}</span></li>
         <li>Apto: <span>{{item.apartment}}</span></li>
       </ul>
