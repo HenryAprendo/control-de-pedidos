@@ -23,6 +23,15 @@ export class WorkOrderService {
     this.workOrders = this.storeWorkOrder.getListWOrkOrder();
   }
 
+  findOrderList(orderNumber:number){
+    const index = this.workOrders.findIndex(item => item.workOrderNumber === orderNumber);
+    if(index >= 0){
+      const data = this.workOrders[index];
+      return data;
+    }
+    return null;
+  }
+
   createNewWorkOrder(){
     let workOrderActual = this.uniqueId.newWorkOrderId();
 

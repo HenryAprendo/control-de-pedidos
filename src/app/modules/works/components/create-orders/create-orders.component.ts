@@ -4,7 +4,10 @@ import { ActivatedRoute } from '@angular/router';
 import { ReactiveFormsModule, Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { MenuService } from '../../../../services/menu.service';
 import { Article } from '../../../../models/article.model';
+import { Orders } from '../../../../models/orders.model';
 import { numberOfTowers, numberOfApartment } from '../../../../data/locations';
+import { UniqueIdService } from '../../../../services/unique-id.service';
+import { WorkOrderService } from '../../../../services/work-order.service';
 
 @Component({
   selector: 'app-create-orders',
@@ -18,6 +21,10 @@ export class CreateOrdersComponent implements OnInit {
   numTowers = numberOfTowers.slice();
 
   numApartments = numberOfApartment.slice();
+
+  private workOrderService = inject(WorkOrderService);
+
+  private uniqueId = inject(UniqueIdService);
 
   private fb = inject(FormBuilder);
 
@@ -53,6 +60,23 @@ export class CreateOrdersComponent implements OnInit {
       tower: [1,[Validators.required]],
       apartment: [101,[Validators.required]]
     });
+  }
+
+  saveOrders(){
+    if(this.formLocations.valid){
+
+      const products = this.menuProducts.filter(item => item.amount! > 0);
+
+      let data:Orders = {
+        id: this.uniqueId.newOrderId(),
+        tower: this.towerField?.value,
+        apartment: this.apartmentField?.value,
+        listOrders: [...products]
+      }
+
+      this.workOrderService.addNewOrders(this.readNumOrder(),data);
+
+    }
   }
 
   get towerField(){

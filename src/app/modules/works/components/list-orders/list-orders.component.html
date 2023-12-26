@@ -1,1 +1,26 @@
 <p>list-orders works!</p>
+
+<div>
+  @for(item of ordersProduct; track item.id){
+    <div class="border mb-6">
+      <ul class="flex gap-x-5 border-b">
+        <li class="border-r px-2">Torre: <span>{{item.tower}}</span></li>
+        <li>Apto: <span>{{item.apartment}}</span></li>
+      </ul>
+      <div class="grid grid-cols-4">
+        @for(product of item.listOrders; track product.id ){
+          <ul class="p-2 border-r border-b">
+            <li>{{product.name}}</li>
+            <li>Cantidad: {{product.amount}}</li>
+            <li>Subtotal: ${{product.amount! * product.price}}</li>
+          </ul>
+        }
+      </div>
+      <div class="border-t">
+        <p class="px-2">Total a pagar: $<span>{{calculateTotalPerOrder(item.listOrders)}}</span></p>
+      </div>
+    </div>
+  }
+</div>
+
+<p>Total de la cuenta: <span>{{total | currency: 'COP'}}</span></p>
