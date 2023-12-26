@@ -1,1 +1,68 @@
-<p>edit-order works!</p>
+
+<h2 class="text-xl font-medium mb-5">Pagina de editar pedidos</h2>
+<div class="flex gap-x-10">
+  <form [formGroup]="formEditLocations" >
+    <h2 class="font-medium mb-4" >Selecciona la ubicación</h2>
+    <div class="flex gap-x-6 mb-8">
+      <div class="flex flex-col">
+        <label for="tower-id" class="text-sm font-semibold">No de Torre</label>
+        <select name="tower" id="tower-id" class="border p-2" formControlName="tower" >
+          @for(val of numTowers; track $index){
+            <option [value]="val">{{val}}</option>
+          }
+        </select>
+      </div>
+      <div class="flex flex-col" >
+        <label for="apartment-id" class="text-sm font-semibold">No Apartamento</label>
+        <select name="apartment" id="apartment-id" class="border p-2" formControlName="apartment">
+          @for(val of numApartments; track $index){
+            <option [value]="val">{{val}}</option>
+          }
+        </select>
+      </div>
+    </div>
+    <button type="submit" class="px-3 py-1 border border-b-2 border-indigo-500 text-indigo-600" >Actualizar</button>
+  </form>
+
+  <div>
+    <h2 class="font-medium mb-4" >Agrega productos a tu pedido</h2>
+    <div class="grid grid-cols-2 gap-5">
+      @for(item of menuProducts; track item.id){
+        <article class="rounded-full border w-96 h-24 p-3 flex justify-around gap-x-4 shadow-md">
+          <section class="flex gap-x-3 items-center">
+            <div class="flex flex-col justify-center items-center">
+              <h3 class="text-base text-blue-600">{{item.name}}</h3>
+              <p class="text-sm font-light text-slate-950 ">{{item.price | currency: 'COP'}}</p>
+            </div>
+            <div>
+              <figure>
+                <img class="w-14 h-14" [src]="item.image" [alt]="item.name">
+              </figure>
+            </div>
+          </section>
+          <section class="flex flex-col items-center justify-center">
+            <p class="mb-2 text-xl">{{item.amount}}</p>
+            <div class="flex gap-x-7">
+              <button (click)="incrementAmountProduct(item.id)" class="w-8 h-8 flex items-center justify-center border rounded-full text-white bg-slate-700 hover:bg-slate-800 active:bg-slate-900 hover:scale-105 " >+</button>
+              <button (click)="decrementAmountProduct(item.id)" class="w-8 h-8 flex items-center justify-center border rounded-full text-white bg-slate-700 hover:bg-slate-800 active:bg-slate-900 hover:scale-105 " >-</button>
+            </div>
+          </section>
+        </article>
+      }
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

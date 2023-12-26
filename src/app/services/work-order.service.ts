@@ -60,6 +60,19 @@ export class WorkOrderService {
     }
   }
 
+  findOrder(orderNum:number, id:number){
+    const position = this.workOrders.findIndex(item => item.workOrderNumber === orderNum);
+    if(position >= 0){
+      const data = this.workOrders[position];
+      const index = data.orderList.findIndex(art => art.id === id);
+      if(index >= 0){
+        let response:Orders = data.orderList[index];
+        return {...response} as Orders;
+      }
+    }
+    return null;
+  }
+
   updateOrderList(orderNumber:number){
     let index = this.workOrders.findIndex(item => item.workOrderNumber === orderNumber);
     if(index >= 0) {
