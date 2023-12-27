@@ -1,27 +1,30 @@
-<h2>Orden de trabajo N° {{orders.workOrderNumber}}</h2>
+<div class="mb-8 space-y-2">
+  <h2 class="text-xl font-medium" >Listado de pedidos realizados</h2>
+  <p class="font-medium">Orden de trabajo N° {{orders.workOrderNumber}}</p>
+</div>
 
 <div>
   @for(item of ordersProduct; track item.id; let i = $index){
-    <div class="border mb-6">
-      <ul class="flex items-center border-b">
-        <li class="border-r px-2" >Pedido N°: {{i + 1}}</li>
-        <li class="border-r px-2" >Torre: <span>{{item.tower}}</span></li>
-        <li class="border-r px-2" >Apto: <span>{{item.apartment}}</span></li>
+    <div class="border mb-8 bg-neutral-50">
+      <ul class="flex items-center border-b text-indigo-500">
+        <li class="border-r px-2" >Pedido N°: <span class="text-stone-800">{{i + 1}}</span></li>
+        <li class="border-r px-2" >Torre: <span class="text-stone-800">{{item.tower}}</span></li>
+        <li class="border-r px-2" >Apto: <span class="text-stone-800">{{item.apartment}}</span></li>
         <li class="p-2 justify-items-end">
           <a [routerLink]="['./edit-order',item.id]" class="border p-1 ">Editar</a>
         </li>
       </ul>
       <div class="grid grid-cols-4">
         @for(product of item.listOrders; track product.id ){
-          <ul class="p-2 border-r border-b">
-            <li>{{product.name}}</li>
-            <li>Cantidad: {{product.amount}}</li>
-            <li>Subtotal: ${{product.amount! * product.price}}</li>
+          <ul class="p-2 border-r border-b text-teal-700">
+            <li class="font-medium">{{product.name}}</li>
+            <li>Cantidad: <span class="text-stone-800" >{{product.amount}}</span></li>
+            <li>Subtotal: <span class="text-stone-800" >${{product.amount! * product.price}}</span></li>
           </ul>
         }
       </div>
       <div class="border-t">
-        <p class="px-2">Total a pagar: $<span>{{calculateTotalPerOrder(item.listOrders)}}</span></p>
+        <p class="px-2 text-pink-500">Total a pagar: $<span>{{calculateTotalPerOrder(item.listOrders)}}</span></p>
       </div>
     </div>
   }
