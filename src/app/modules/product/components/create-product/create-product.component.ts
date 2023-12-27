@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { Article } from '../../../../models/article.model';
 import { UniqueIdService } from '../../../../services/unique-id.service';
 import { ProductService } from '../../../../services/product.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-product',
@@ -14,6 +15,8 @@ import { ProductService } from '../../../../services/product.service';
   styles: ``
 })
 export class CreateProductComponent {
+
+  private router = inject(Router);
 
   private productService = inject(ProductService);
 

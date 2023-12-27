@@ -27,7 +27,7 @@ export class ProductService {
   addProduct(data:Article){
     this.listArticle.push({...data});
     this.storeProduct.saveListArticle([...this.listArticle]);
-    this.router.navigate(['./']);
+    this.router.navigate(['products/list-product']);
   }
 
   findAll(): Observable<Article[]>{

@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { of, switchMap } from 'rxjs';
 import { WorkOrderService } from '../../../../services/work-order.service';
@@ -24,6 +24,8 @@ export class EditOrderComponent implements OnInit {
 
   private route = inject(ActivatedRoute);
 
+  private router = inject(Router);
+
   private workOrderService = inject(WorkOrderService);
 
   private fb = inject(FormBuilder);
@@ -46,8 +48,6 @@ export class EditOrderComponent implements OnInit {
     this.route.parent?.paramMap
       .subscribe(params => this.ordersNumber = Number(params.get('orderNumber')) );
 
-    this.menuProducts = this.menuService.retrieve();
-
     this.route.paramMap.pipe(
       switchMap(params => {
         let id = Number(params.get('id'));
@@ -68,7 +68,25 @@ export class EditOrderComponent implements OnInit {
 
     });
 
+  }
 
+  editOrder(){
+    if(this.formEditLocations.valid){
+      const products = this.menuProducts.filter(item => item.amount! > 0);
+
+      let data:Orders = {
+        id: this.product.id,
+        tower: this.towerField?.value,
+        apartment: this.apartmentField?.value,
+        listOrders: [...products]
+      }
+
+      this.workOrderService.updateOrder(this.ordersNumber,this.product.id,data);
+      this.router.navigate(['works/orders',this.ordersNumber])
+
+    } else {
+      this.formEditLocations.markAllAsTouched();
+    }
   }
 
   private buildForm(){
@@ -118,6 +136,8 @@ export class EditOrderComponent implements OnInit {
 
     return updatedProductMenu;
   }
+
+
 
 }
 

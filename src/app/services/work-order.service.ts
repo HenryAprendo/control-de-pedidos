@@ -73,6 +73,18 @@ export class WorkOrderService {
     return null;
   }
 
+  updateOrder(orderNum:number, id:number, editedOrder: Orders){
+    const position = this.workOrders.findIndex(item => item.workOrderNumber === orderNum);
+    if(position >= 0){
+      const data = this.workOrders[position];
+      const index = data.orderList.findIndex(art => art.id === id);
+      if(index >= 0){
+        data.orderList[index] = {...editedOrder}
+        this.storeWorkOrder.saveListWorkOrder(this.workOrders);
+      }
+    }
+  }
+
   updateOrderList(orderNumber:number){
     let index = this.workOrders.findIndex(item => item.workOrderNumber === orderNumber);
     if(index >= 0) {
