@@ -46,6 +46,8 @@ export class EditOrderComponent implements OnInit {
     this.route.parent?.paramMap
       .subscribe(params => this.ordersNumber = Number(params.get('orderNumber')) );
 
+    this.menuProducts = this.menuService.retrieve();
+
     this.route.paramMap.pipe(
       switchMap(params => {
         let id = Number(params.get('id'));
@@ -53,16 +55,20 @@ export class EditOrderComponent implements OnInit {
       })
     )
     .subscribe(dta => {
+
       if(dta){
         this.product = dta;
         this.formEditLocations.setValue({
           tower: dta.tower,
           apartment: dta.apartment
-        })
+        });
+
+        this.menuProducts = this.updateMenuProducts(this.menuService.retrieve(),dta.listOrders);
       }
+
     });
 
-    this.menuProducts = this.menuService.retrieve();
+
   }
 
   private buildForm(){
@@ -99,6 +105,19 @@ export class EditOrderComponent implements OnInit {
     }
   }
 
+  private updateMenuProducts(originalProductMenu:Article[], orderProducts:Article[]){
+    let updatedProductMenu:Article[] = [];
+    originalProductMenu.forEach(product => {
+      let data = orderProducts.find(item => item.id === product.id);
+      if(data !== undefined){
+        updatedProductMenu.push({...data});
+      } else {
+        updatedProductMenu.push({...product});
+      }
+    });
+
+    return updatedProductMenu;
+  }
 
 }
 
